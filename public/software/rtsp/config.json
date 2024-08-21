@@ -1,0 +1,10 @@
+{
+  "server": {
+    "http_port": ":18088",
+    "ice_servers": [
+      "stun:stun.lhapi.cn:3478"
+    ]
+  },
+  "streams": {
+  }
+}

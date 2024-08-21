@@ -1,0 +1,59 @@
+// @see - https://www.electron.build/configuration/configuration
+{
+  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
+  "appId": "SakuraTools",
+  "asar": true,
+  "icon": "public/favicon.ico",
+  "productName": "SakuraTools",
+  "directories": {
+    "output": "release/${version}"
+  },
+  "files": [
+    "dist",
+    "dist-electron"
+  ],
+  "mac": {
+    "target": [
+      "dmg"
+    ],
+    "artifactName": "${productName}-Mac-${version}-Installer.${ext}"
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      }
+    ],
+    "artifactName": "${productName}-Win-${version}-x64-Setup.${ext}"
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "deleteAppDataOnUninstall": true
+  },
+  "linux": {
+    "target": [
+      "AppImage"
+    ],
+    "artifactName": "${productName}-Linux-${version}.${ext}"
+  },
+  "extraFiles": [
+    {
+      "from": "public/favicon.ico",
+      "to": ".",
+      "filter": "favicon.ico"
+    },
+    {
+      "from": "public/software/",
+      "to": "./resources/app.asar.unpacked/software",
+    },
+    {
+      "from": "public/config/",
+      "to": "./resources/app.asar.unpacked/config",
+    }
+  ]
+}
