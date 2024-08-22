@@ -6,12 +6,20 @@
 
 <script lang="ts">
 
-import {defineComponent} from "vue";
+import {defineComponent, onMounted} from "vue";
+import {getAction} from "./api/api.ts";
 
 export default defineComponent({
   name: 'App',
   setup() {
     console.log('App')
+
+    onMounted(() => {
+      getAction('/').then((resp: any) => {
+        console.log(resp)
+      })
+    })
+
     return {}
   }
 })

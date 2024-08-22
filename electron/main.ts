@@ -4,6 +4,7 @@ import {fileURLToPath} from 'node:url'
 import {dirname, join} from 'node:path'
 import fs from 'node:fs'
 import dayjs from "dayjs";
+import {storeSet} from "../src/utils/store.ts";
 
 //const require: NodeRequire = createRequire(import.meta.url)
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -132,7 +133,7 @@ function createWindow() {
         mainWindow.loadURL(VITE_DEV_SERVER_URL)
     } else {
         app.setLoginItemSettings({
-            openAtLogin: true,
+            openAtLogin: false,
             type: "mainAppService",
             path: `"${process.execPath}"`
         })
@@ -473,6 +474,9 @@ function LoadConfig() {
         ledType = config.ledType;
         rtspType = config.rtspType;
         serviceType = config.serviceType;
+        Object.keys(config).forEach((key) => {
+            storeSet(key, config[key])
+        })
         mainWindow.webContents.send('setting-config', data);
         logToFile('读取配置文件成功：Success');
     } catch (err) {
@@ -501,7 +505,7 @@ function writeConfig(message: string) {
 function logToFile(message: string) {
     if (logType) {
         const logPath: string = JudgmentMode() ? join(process.env.VITE_PUBLIC, 'log.txt') : join(app.getPath('home'), 'gam_pro_log.txt');
-        const logLine: string = `[${dayjs().format('YYYY-MM-DD HH:mm:ss')}] ${message}`;
+        const logLine: string = `[${dayjs().format('YYYY-MM-DD HH:mm:ss')}] ${message}\n`;
         fs.appendFile(logPath, logLine, (err) => {
             if (err) {
                 console.error('无法写入日志文件', err);

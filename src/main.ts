@@ -8,4 +8,11 @@ createApp(App).use(router).mount('#app').$nextTick(() => {
   window.ipcRenderer.on('main-process-message', (_event, message) => {
     console.log(message)
   })
+
+  window.ipcRenderer.on('setting-config',(_event, message)=>{
+    const data = JSON.parse(message)
+    Object.keys(data).forEach((key) => {
+      localStorage.setItem(key, data[key])
+    })
+  })
 })
