@@ -6,7 +6,6 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="script-src 'self' 'unsafe-inline';" http-equiv="Content-Security-Policy"/>
     <script type="module" src="/src/main.ts"></script>
-    <title></title>
     <style>
         #app {
             width: 100vw;
@@ -15,20 +14,21 @@
             padding: 0;
         }
 
-        #app {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
         body {
             -webkit-user-select: none; /* Safari/Chrome */
             -moz-user-select: none; /* Firefox */
             -ms-user-select: none; /* IE/Edge */
             user-select: none; /* 标准语法 */
         }
+
+        @font-face {
+            font-family: 'DS-DIGIT';
+            src: url('/font/DS-DIGIT.TTF');
+            font-weight: normal;
+            font-style: normal;
+        }
     </style>
+    <title></title>
 </head>
 <body>
 <div id="app"></div>

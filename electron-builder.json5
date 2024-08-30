@@ -33,7 +33,7 @@
     "oneClick": false,
     "perMachine": false,
     "allowToChangeInstallationDirectory": true,
-    "deleteAppDataOnUninstall": true
+    "deleteAppDataOnUninstall": false
   },
   "linux": {
     "target": [
@@ -46,14 +46,6 @@
       "from": "public/favicon.ico",
       "to": ".",
       "filter": "favicon.ico"
-    },
-    {
-      "from": "public/software/",
-      "to": "./resources/app.asar.unpacked/software",
-    },
-    {
-      "from": "public/config/",
-      "to": "./resources/app.asar.unpacked/config",
     }
   ]
 }

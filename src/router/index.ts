@@ -8,8 +8,8 @@ const routes: any[] = [
     {
         path: '/index',
         name: 'index',
-        component: () => import('../view/index.vue')
-    }
+        component: () => import('../views/index.vue')
+    },
 ]
 
 const router: Router = createRouter({
