@@ -19,7 +19,16 @@
         </div>
       </div>
     </div>
-    <router-view :key="route.fullPath"/>
+    <div class="window-content">
+      <div class="app-left">
+        <div class="app-left-content">
+          <img src="./assets/favicon.ico" alt="" @click="openOfficialWebsite">
+        </div>
+      </div>
+      <div class="app-content">
+        <router-view :key="route.fullPath"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -34,6 +43,7 @@ import {
   PushpinFilled,
   PushpinOutlined
 } from "@ant-design/icons-vue"
+import {useColorMode} from "@vueuse/core";
 
 export default defineComponent({
   name: "App",
@@ -47,6 +57,7 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
+    const mode = useColorMode()
     const FullScreenType = ref(true as boolean);
     const TopType = ref(true as boolean);
     const titleBar = ref(null as any);
@@ -61,15 +72,20 @@ export default defineComponent({
       window.ipcRenderer.send('top-type', !TopType.value)
     }
 
-    function CloseWindow(){
+    function CloseWindow() {
       window.ipcRenderer.send('close-window')
     }
 
-    function minimizeWindow(){
+    function minimizeWindow() {
       window.ipcRenderer.send('minimize-window')
     }
 
+    function openOfficialWebsite() {
+      window.ipcRenderer.send('open-official-website')
+    }
+
     return {
+      mode,
       route,
       TopType,
       titleBar,
@@ -77,7 +93,8 @@ export default defineComponent({
       CloseWindow,
       TopOperation,
       FullScreenType,
-      minimizeWindow
+      minimizeWindow,
+      openOfficialWebsite
     }
   }
 })
@@ -138,6 +155,37 @@ export default defineComponent({
           background-color: #FF0000;
         }
       }
+    }
+  }
+
+  .window-content {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+
+    .app-left {
+      width: 78px;
+      height: 100vh;
+
+      .app-left-content {
+        padding-top: 36px;
+        width: 78px;
+        height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 48px;
+          height: 48px;
+        }
+      }
+    }
+
+    .app-content {
+      width: calc(100vw - 78px);
+      height: calc(100vh - 56px);
+      padding: 36px 20px 20px 20px;
     }
   }
 }
