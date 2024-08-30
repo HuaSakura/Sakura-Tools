@@ -1,0 +1,115 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.dark {
+  background-color: #242424;
+  color: #ffffff;
+
+  .app {
+    .window-operate {
+      .window-operate-right {
+        &:hover {
+          .window-operate-icon {
+            .anticon {
+              font-size: 14px;
+              font-weight: bold;
+              color: #eee !important;
+            }
+          }
+        }
+
+        .window-operate-icon {
+          width: 25%;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .anticon {
+            font-size: 14px;
+            font-weight: bold;
+            color: #888888;
+          }
+
+          &:hover {
+            background-color: #1a1a1a !important;
+          }
+        }
+
+        .close {
+          &:hover {
+            background-color: #FF0000 !important;
+          }
+        }
+      }
+    }
+
+    .window-content{
+      .app-left{
+        background-color: rgba(0,0,0,.9) !important;
+      }
+    }
+  }
+}
+
+.light {
+  background-color: #ffffff;
+  color: #000000;
+
+  .app {
+    .window-operate {
+      .window-operate-right {
+        &:hover {
+          .window-operate-icon {
+            .anticon {
+              font-size: 14px;
+              font-weight: bold;
+              color: #696969 !important;
+            }
+          }
+
+          .window-operate-icon {
+            width: 25%;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .anticon {
+              font-size: 14px;
+              font-weight: bold;
+              color: #3f3f3f !important;
+            }
+
+            &:hover {
+              background-color: #eeeeee;
+            }
+          }
+
+          .close {
+            &:hover {
+              background-color: #FF0000;
+            }
+          }
+        }
+      }
+    }
+
+    .window-content{
+      .app-left{
+        background-color: rgba(0,0,0,.8) !important;
+      }
+    }
+  }
+}
