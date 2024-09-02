@@ -22,7 +22,41 @@
     <div class="window-content">
       <div class="app-left">
         <div class="app-left-content">
-          <img src="./assets/favicon.ico" alt="" @click="openOfficialWebsite">
+          <div class="app-left-content-logo">
+            <img src="./assets/favicon.ico" alt="" @click="openOfficialWebsite">
+          </div>
+          <div class="app-left-content-button">
+            <div class="button-bottom">
+              <div class="icon">
+                <svg version="1.1" role="presentation" width="20" height="20" viewBox="0 0 24 24" class="mo-icon">
+                  <g stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <line x1="14" y1="4" x2="23" y2="4"></line>
+                    <line x1="1" y1="4" x2="4" y2="4"></line>
+                    <line data-color="color-2" x1="22" y1="12" x2="23" y2="12"></line>
+                    <line data-color="color-2" x1="1" y1="12" x2="12" y2="12"></line>
+                    <line x1="14" y1="20" x2="23" y2="20"></line>
+                    <line x1="1" y1="20" x2="4" y2="20"></line>
+                    <circle cx="7" cy="4" r="3"></circle>
+                    <circle data-color="color-2" cx="15" cy="12" r="3"></circle>
+                    <circle cx="7" cy="20" r="3"></circle>
+                  </g>
+                </svg>
+              </div>
+              <div class="icon">
+                <svg version="1.1" role="presentation" width="20" height="20" viewBox="0 0 24 24" class="mo-icon">
+                  <g>
+                    <g stroke-linecap="round" stroke-linejoin="round" stroke-width="2" fill="#fff" stroke="#fff">
+                      <circle fill="none" stroke="#fff" stroke-miterlimit="10" cx="12" cy="12" r="11"></circle>
+                      <path data-color="color-2" fill="none" stroke-miterlimit="10"
+                            d="M12,15v-2 c1.609,0,3-1.391,3-3s-1.391-3-3-3c-1.194,0-2.342,0.893-2.792,1.921"></path>
+                      <circle data-color="color-2" data-stroke="none" cx="12" cy="18" r="1" stroke-linejoin="miter"
+                              stroke-linecap="square" stroke="none"></circle>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="app-content">
@@ -41,13 +75,17 @@ import {
   FullscreenOutlined,
   MinusOutlined,
   PushpinFilled,
-  PushpinOutlined
+  PushpinOutlined,
+  QuestionCircleOutlined,
+  SettingOutlined
 } from "@ant-design/icons-vue"
 import {useColorMode} from "@vueuse/core";
 
 export default defineComponent({
   name: "App",
   components: {
+    QuestionCircleOutlined,
+    SettingOutlined,
     PushpinFilled,
     MinusOutlined,
     CloseOutlined,
@@ -99,95 +137,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped lang="less">
-.app {
-  width: 100vw;
-  height: 100vh;
-
-  .window-operate {
-    display: flex;
-    top: 0;
-    position: fixed;
-    width: 100vw;
-    height: 36px;
-    z-index: 5000;
-
-    .window-operate-left {
-      width: 100%;
-      -webkit-app-region: drag;
-    }
-
-    .window-operate-right {
-      display: flex;
-      width: 205px;
-
-      &:hover {
-        .window-operate-icon {
-          .anticon {
-            font-size: 14px;
-            font-weight: bold;
-            color: #eee;
-          }
-        }
-      }
-
-      .window-operate-icon {
-        width: 25%;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .anticon {
-          font-size: 14px;
-          font-weight: bold;
-          color: #888888;
-        }
-
-        &:hover {
-          background-color: #242424;
-        }
-      }
-
-      .close {
-        &:hover {
-          background-color: #FF0000;
-        }
-      }
-    }
-  }
-
-  .window-content {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-
-    .app-left {
-      width: 78px;
-      height: 100vh;
-
-      .app-left-content {
-        padding-top: 36px;
-        width: 78px;
-        height: 78px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        img {
-          width: 48px;
-          height: 48px;
-        }
-      }
-    }
-
-    .app-content {
-      width: calc(100vw - 78px);
-      height: calc(100vh - 56px);
-      padding: 36px 20px 20px 20px;
-    }
-  }
-}
-
-</style>
