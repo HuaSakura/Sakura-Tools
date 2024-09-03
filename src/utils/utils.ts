@@ -1,4 +1,4 @@
-import {app, BrowserWindow, ipcMain, Menu, Tray} from "electron";
+import {app, BrowserWindow, Menu, Tray} from "electron";
 import {dirname, join} from "node:path";
 import {createWindow, VITE_DEV_SERVER_URL} from "../../electron/main.ts";
 import {fileURLToPath} from "node:url";
@@ -33,10 +33,7 @@ function useCreateWindow(iconPath: string) {
 
 function DidFinishLoad(mainWin: any) {
     mainWin.webContents.on('did-finish-load', () => {
-        ipcMain.on('win-restart', () => {
-            restart()
-        })
-
+        console.log(123123123)
         if (JudgmentMode()) {
             //mainWin.webContents.openDevTools()
         } else {
