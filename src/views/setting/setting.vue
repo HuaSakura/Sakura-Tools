@@ -87,7 +87,7 @@ export default defineComponent({
       typesFun[type]()
     }
 
-    function checkObjectType(obj: any) {
+    function checkObjectType() {
       for (let key in theme.value) {
         const type = theme.value[key];
         if(type == true){
@@ -97,8 +97,7 @@ export default defineComponent({
     }
 
     function saveApply() {
-      const obj = {...theme.value};
-      let type: any = checkObjectType(obj);
+      let type: any = checkObjectType();
       setTheme(type)
       window.ipcRenderer.send('set-auto-start', autoStart.value)
     }
