@@ -27,7 +27,7 @@
           </div>
           <div class="app-left-content-button">
             <div class="button-bottom">
-              <div class="icon">
+              <div class="icon" @click="openSetting">
                 <svg version="1.1" role="presentation" width="20" height="20" viewBox="0 0 24 24" class="mo-icon">
                   <g stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                     <line x1="14" y1="4" x2="23" y2="4"></line>
@@ -68,7 +68,7 @@
 
 <script lang="ts">
 import {defineComponent, ref} from "vue";
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {
   CloseOutlined,
   FullscreenExitOutlined,
@@ -95,6 +95,7 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const mode = useColorMode()
     const FullScreenType = ref(true as boolean);
     const TopType = ref(true as boolean);
@@ -122,12 +123,17 @@ export default defineComponent({
       window.ipcRenderer.send('open-official-website')
     }
 
+    function openSetting(){
+      router.push('/setting')
+    }
+
     return {
       mode,
       route,
       TopType,
       titleBar,
       FullScreen,
+      openSetting,
       CloseWindow,
       TopOperation,
       FullScreenType,

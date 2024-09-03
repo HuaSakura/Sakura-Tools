@@ -4,18 +4,45 @@ import electron from 'vite-plugin-electron/simple'
 import vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite';
 import {AntDesignVueResolver} from 'unplugin-vue-components/resolvers';
+import {resolve} from "path";
+
+function pathResolve(dir: string) {
+    return resolve(process.cwd(), '.', dir);
+}
 
 // https://cn.vitejs.dev/config/
 export default defineConfig({
     server: {
         port: 5919
     },
+    css: {
+        preprocessorOptions: {
+            less: {
+                lessOptions: {
+                    modifyVars: {
+                       'checkbox-check-bg': '#5b5bfa',
+                        'checkbox-color': '#fff',
+                        'checkbox-check-color': '#fff'
+                    }
+                },
+                javascriptEnabled: true,
+            },
+        },
+    },
+    resolve: {
+        alias: [
+            {
+                find: '@',
+                replacement: pathResolve('src'),
+            },
+        ],
+    },
     plugins: [
         vue(),
         Components({
             resolvers: [
                 AntDesignVueResolver({
-                    importStyle: false,
+                    importStyle: true,
                 }),
             ],
         }),

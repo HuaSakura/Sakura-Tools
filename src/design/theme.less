@@ -1,4 +1,7 @@
+@import "./ant/ant.less";
+
 html[data-theme='light'] {
+
   .app {
     color: black;
     width: 100vw;
@@ -69,7 +72,7 @@ html[data-theme='light'] {
         background-color: rgba(0, 0, 0, 0.8);
 
         .app-left-content {
-          height: calc(100vh - 36px);
+          height: 100vh;
           padding-top: 36px;
           display: flex;
           align-items: center;
@@ -90,14 +93,19 @@ html[data-theme='light'] {
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
-            height: calc(100vh - 114px);
+            height: calc(100vh - 78px);
 
-            .button-bottom{
+            .button-bottom {
               width: 100%;
               height: 120px;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              justify-content: center;
 
               .icon {
-                width: 78px;
+                width: 48px;
+                height: 48px;
                 color: white;
                 display: flex;
                 font-size: 24px;
@@ -105,12 +113,21 @@ html[data-theme='light'] {
                 align-items: center;
                 justify-content: center;
 
-                &:first-child{
-                  height: 40%;
+                &:hover {
+                  background-color: rgba(66, 66, 66, 0.4);
+                  border-radius: 50%;
                 }
 
-                &:last-child{
-                  height: 60%;
+                &:active {
+                  background-color: rgba(66, 66, 66, 0.8);
+                }
+
+                &:first-child {
+
+                }
+
+                &:last-child {
+                  margin-bottom: 20px;
                 }
               }
             }
@@ -125,7 +142,7 @@ html[data-theme='light'] {
 
       .app-content {
         width: calc(100vw - 78px);
-        height: calc(100vh - 56px);
+        height: 100vh;
         padding: 36px 20px 20px 20px;
       }
     }
@@ -133,6 +150,7 @@ html[data-theme='light'] {
 }
 
 html[data-theme='dark'] {
+
   .app {
     color: white;
     width: 100vw;
@@ -200,10 +218,10 @@ html[data-theme='dark'] {
       .app-left {
         width: 78px;
         height: 100vh;
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.5);
 
         .app-left-content {
-          height: calc(100vh - 36px);
+          height: 100vh;
           padding-top: 36px;
           display: flex;
           align-items: center;
@@ -224,14 +242,19 @@ html[data-theme='dark'] {
             flex-direction: column;
             align-items: center;
             justify-content: flex-end;
-            height: calc(100vh - 114px);
+            height: calc(100vh - 78px);
 
-            .button-bottom{
+            .button-bottom {
               width: 100%;
               height: 120px;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              justify-content: center;
 
               .icon {
-                width: 78px;
+                width: 48px;
+                height: 48px;
                 color: white;
                 display: flex;
                 font-size: 24px;
@@ -239,12 +262,21 @@ html[data-theme='dark'] {
                 align-items: center;
                 justify-content: center;
 
-                &:first-child{
-                  height: 40%;
+                &:hover {
+                  background-color: rgba(66, 66, 66, 0.4);
+                  border-radius: 50%;
                 }
 
-                &:last-child{
-                  height: 60%;
+                &:active {
+                  background-color: rgba(66, 66, 66, 0.8);
+                }
+
+                &:first-child {
+
+                }
+
+                &:last-child {
+                  margin-bottom: 20px;
                 }
               }
             }
@@ -259,7 +291,7 @@ html[data-theme='dark'] {
 
       .app-content {
         width: calc(100vw - 78px);
-        height: calc(100vh - 56px);
+        height: 100vh;
         padding: 36px 20px 20px 20px;
       }
     }

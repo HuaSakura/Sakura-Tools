@@ -1,7 +1,7 @@
+import App from './App.vue'
 import {createApp} from 'vue'
 import './style.less'
 import './design/theme.less'
-import App from './App.vue'
 import {registerThirdComp} from "./settings/registerThirdComp.ts";
 import {setTheme} from "./settings/setTheme.ts";
 

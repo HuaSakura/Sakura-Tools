@@ -38,7 +38,7 @@ function DidFinishLoad(mainWin: any) {
         })
 
         if (JudgmentMode()) {
-            mainWin.webContents.openDevTools()
+            //mainWin.webContents.openDevTools()
         } else {
             setTimeout(() => {
                 mainWin.fullScreen = true
@@ -56,11 +56,6 @@ function SetBootPath(mainWin: any) {
     if (JudgmentMode()) {
         mainWin.loadURL(VITE_DEV_SERVER_URL)
     } else {
-        app.setLoginItemSettings({
-            openAtLogin: true,
-            type: "mainAppService",
-            path: `"${process.execPath}"`
-        })
         mainWin.loadFile('dist/index.html')
     }
 }
@@ -140,11 +135,24 @@ function createTrayIcon(mainWin: any) {
     })
 }
 
+/**
+ * 设置开机启动
+ * @param type
+ */
+function setAutoStart(type: boolean) {
+    app.setLoginItemSettings({
+        openAtLogin: type,
+        type: "mainAppService",
+        path: `"${process.execPath}"`
+    })
+}
+
 export {
     restart,
     SetBootPath,
     SetFilePath,
     JudgmentMode,
+    setAutoStart,
     DidFinishLoad,
     createTrayIcon,
     useCreateWindow,

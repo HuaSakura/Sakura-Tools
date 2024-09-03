@@ -3,7 +3,7 @@ import {createRouter, createWebHashHistory, Router} from 'vue-router'
 const routes: any[] = [
     {
         path: '/',
-        redirect: '/setting'
+        redirect: '/index'
     },
     {
         path: '/index',
@@ -13,7 +13,7 @@ const routes: any[] = [
     {
         path: '/setting',
         name: 'setting',
-        component: () => import('../views/setting.vue')
+        component: () => import('../views/setting/setting.vue')
     },
 ]
 

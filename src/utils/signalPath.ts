@@ -1,5 +1,5 @@
 import {app, globalShortcut, ipcMain, shell} from 'electron';
-import {restart} from "./utils.ts";
+import {restart, setAutoStart} from "./utils.ts";
 
 /**
  * 注册全局快捷键
@@ -85,6 +85,10 @@ function signalPath(mainWin: any) {
 
     ipcMain.on('open-official-website', () => {
         shell.openExternal('https://www.98one.cn');
+    })
+
+    ipcMain.on('set-auto-start', (_event, data) => {
+        setAutoStart(data)
     })
 }
 

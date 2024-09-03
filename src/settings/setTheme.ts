@@ -5,7 +5,7 @@ import {watch} from "vue";
  * 设置主题
  * @param theme
  */
-export async function setTheme(theme: string = '') {
+export async function setTheme(theme: any = 'auto') {
     const htmlRoot: any = document.getElementById('htmlRoot')
     if (!htmlRoot) {
         return;
@@ -14,7 +14,7 @@ export async function setTheme(theme: string = '') {
     watch(() => preferredColor.value, () => {
         setTheme()
     })
-    if (theme == '') {
+    if (theme == 'auto') {
         htmlRoot.setAttribute('data-theme', preferredColor.value)
     } else {
         htmlRoot.setAttribute('data-theme', theme)
