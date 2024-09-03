@@ -63,7 +63,7 @@ export default defineComponent({
   setup() {
     const router = useRouter();
 
-    const theme = ref({
+    const theme: any = ref({
       autoType: true,
       darkType: false,
       lightType: false
