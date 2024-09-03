@@ -75,6 +75,10 @@ function signalPath(mainWin: any) {
         mainWin.setAlwaysOnTop(type)
     })
 
+    ipcMain.on('win-restart', () => {
+        restart()
+    })
+
     ipcMain.on('close-window', () => {
         mainWin.close()
     })
