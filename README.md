@@ -16,13 +16,7 @@ npm run build | yarn build
 
 项目初始化之后的第一次打包需要拉取一次Electron的打包资源，同第一次初始换要求一样，由于个人在开发中没有使用pnpm的习惯，关于pnpm的启动初始化出现的问题，我无法明确告知具体原因，近期觉的国内的好多镜像资源都不是很好用，所以一直使用的是魔法网络的npm或者yarn
 
-
-![image-20240905142832924](/public/preview/image-20240905142832924.png)
-
-![image-20240905142856938](/public/preview/image-20240905142856938.png)
-
-
-
-![image-20240905142659938](/public/preview/image-20240905142659938.png)
-
-![image-20240905142949263](/public/preview/image-20240905142949263.png)
+<img src=".\public\preview\image-20240905142832924.png" alt="image-20240905142832924" style="zoom:25%;" />
+<img src=".\public\preview\image-20240905142856938.png" alt="image-20240905142856938" style="zoom:25%;" />
+<img src=".\public\preview\image-20240905142659938.png" alt="image-20240905142659938" style="zoom:25%;" />
+<img src=".\public\preview\image-20240905142949263.png" alt="image-20240905142949263" style="zoom:25%;" />
