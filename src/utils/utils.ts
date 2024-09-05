@@ -33,7 +33,6 @@ function useCreateWindow(iconPath: string) {
 
 function DidFinishLoad(mainWin: any) {
     mainWin.webContents.on('did-finish-load', () => {
-        console.log(123123123)
         if (JudgmentMode()) {
             //mainWin.webContents.openDevTools()
         } else {
