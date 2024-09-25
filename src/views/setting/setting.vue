@@ -85,6 +85,8 @@ export default defineComponent({
 
     function switchThemes(type: any) {
       typesFun[type]()
+      let types: any = checkObjectType();
+      setTheme(types)
     }
 
     function checkObjectType() {
@@ -97,8 +99,6 @@ export default defineComponent({
     }
 
     function saveApply() {
-      let type: any = checkObjectType();
-      setTheme(type)
       window.ipcRenderer.send('set-auto-start', autoStart.value)
     }
 
@@ -118,24 +118,112 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
+.setting {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .setting-title {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    padding-bottom: 12px;
+    margin: 0 16px;
+  }
+
+  .setting-content {
+    margin-top: 20px;
+  }
+
+  .appearance {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .appearance-content {
+      margin-right: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .appearance-text {
+        margin-top: 5px;
+      }
+
+      .appearance-text-selected {
+        color: #5b5bfa;
+      }
+
+      .appearance-auto,
+      .appearance-light,
+      .appearance-dark {
+        width: 68px;
+        height: 44px;
+        border-radius: 5px;
+        border: 1px solid #fff;
+      }
+
+      .appearance-auto {
+        background: url('@/assets/images/auto.png') 50% / 68px 44px no-repeat;
+      }
+
+      .appearance-light {
+        background: url('@/assets/images/light.png') 50% / 68px 44px no-repeat;
+      }
+
+      .appearance-dark {
+        background: url('@/assets/images/dark.png') 50% / 68px 44px no-repeat;
+      }
+
+      .appearance-auto-selected,
+      .appearance-light-selected,
+      .appearance-dark-selected {
+        width: 68px;
+        height: 44px;
+        border-radius: 5px;
+        border: 1px solid #5b5bfa;
+      }
+
+      .appearance-auto-selected {
+        background: url('@/assets/images/auto.png') 50% / 68px 44px no-repeat;
+      }
+
+      .appearance-light-selected {
+        background: url('@/assets/images/light.png') 50% / 68px 44px no-repeat;
+      }
+
+      .appearance-dark-selected {
+        background: url('@/assets/images/dark.png') 50% / 68px 44px no-repeat;
+      }
+    }
+  }
+
+  .setting-footer {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    position: absolute;
+    bottom: 0;
+
+    .setting-footer-btn {
+      width: 165px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}
+
+
 html[data-theme='light'] {
   .setting {
-    position: relative;
-    width: 100%;
-    height: 100%;
-
     .setting-title {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 24px;
-      padding-bottom: 12px;
-      margin: 0 16px;
       border-bottom: 2px solid rgba(0, 0, 0, .1);
     }
 
     .setting-content {
-      margin-top: 20px;
-
       .ant-form,
       .ant-form-item,
       .ant-form-item-label {
@@ -146,107 +234,16 @@ html[data-theme='light'] {
         }
       }
     }
-
-    .appearance {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-
-      .appearance-content {
-        margin-right: 15px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        .appearance-text {
-          margin-top: 5px;
-        }
-
-        .appearance-text-selected {
-          color: #5b5bfa;
-        }
-
-        .appearance-auto,
-        .appearance-light,
-        .appearance-dark {
-          width: 68px;
-          height: 44px;
-          border-radius: 5px;
-          border: 1px solid #fff;
-        }
-
-        .appearance-auto {
-          background: url('@/assets/images/auto.png') 50% / 68px 44px no-repeat;
-        }
-
-        .appearance-light {
-          background: url('@/assets/images/light.png') 50% / 68px 44px no-repeat;
-        }
-
-        .appearance-dark {
-          background: url('@/assets/images/dark.png') 50% / 68px 44px no-repeat;
-        }
-
-        .appearance-auto-selected,
-        .appearance-light-selected,
-        .appearance-dark-selected {
-          width: 68px;
-          height: 44px;
-          border-radius: 5px;
-          border: 1px solid #5b5bfa;
-        }
-
-        .appearance-auto-selected {
-          background: url('@/assets/images/auto.png') 50% / 68px 44px no-repeat;
-        }
-
-        .appearance-light-selected {
-          background: url('@/assets/images/light.png') 50% / 68px 44px no-repeat;
-        }
-
-        .appearance-dark-selected {
-          background: url('@/assets/images/dark.png') 50% / 68px 44px no-repeat;
-        }
-      }
-    }
-
-    .setting-footer {
-      width: 100%;
-      height: 40px;
-      padding: 0 12px;
-      position: absolute;
-      bottom: 0;
-
-      .setting-footer-btn {
-        width: 165px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-    }
   }
 }
 
 html[data-theme='dark'] {
   .setting {
-    position: relative;
-    width: 100%;
-    height: 100%;
-
     .setting-title {
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 24px;
-      padding-bottom: 12px;
-      margin: 0 16px;
       border-bottom: 2px solid rgba(255, 255, 255, .1);
     }
 
     .setting-content {
-      margin-top: 20px;
-
       .ant-form,
       .ant-form-item,
       .ant-form-item-label {
@@ -255,87 +252,6 @@ html[data-theme='dark'] {
         :deep(label) {
           color: #fff;
         }
-      }
-
-
-      .appearance {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-
-        .appearance-content {
-          margin-right: 15px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-
-          .appearance-text {
-            margin-top: 5px;
-          }
-
-          .appearance-text-selected {
-            color: #5b5bfa;
-          }
-
-          .appearance-auto,
-          .appearance-light,
-          .appearance-dark {
-            width: 68px;
-            height: 44px;
-            border-radius: 5px;
-            border: 1px solid #fff;
-          }
-
-          .appearance-auto {
-            background: url('@/assets/images/auto.png') 50% / 68px 44px no-repeat;
-          }
-
-          .appearance-light {
-            background: url('@/assets/images/light.png') 50% / 68px 44px no-repeat;
-          }
-
-          .appearance-dark {
-            background: url('@/assets/images/dark.png') 50% / 68px 44px no-repeat;
-          }
-
-          .appearance-auto-selected,
-          .appearance-light-selected,
-          .appearance-dark-selected {
-            width: 68px;
-            height: 44px;
-            border-radius: 5px;
-            border: 1px solid #5b5bfa;
-          }
-
-          .appearance-auto-selected {
-            background: url('@/assets/images/auto.png') 50% / 68px 44px no-repeat;
-          }
-
-          .appearance-light-selected {
-            background: url('@/assets/images/light.png') 50% / 68px 44px no-repeat;
-          }
-
-          .appearance-dark-selected {
-            background: url('@/assets/images/dark.png') 50% / 68px 44px no-repeat;
-          }
-        }
-      }
-    }
-
-    .setting-footer {
-      width: 100%;
-      height: 40px;
-      padding: 0 12px;
-      position: absolute;
-      bottom: 0;
-
-      .setting-footer-btn {
-        width: 165px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
       }
     }
   }

@@ -8,7 +8,7 @@ const routes: any[] = [
     {
         path: '/index',
         name: 'index',
-        component: () => import('../views/index.vue')
+        component: () => import('../views/index/index.vue')
     },
     {
         path: '/setting',
