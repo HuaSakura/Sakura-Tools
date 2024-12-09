@@ -1,8 +1,7 @@
 {
-  "name": "electron-vite-pro",
+  "name": "sakura-tools",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
   "author": {
     "name": "SakuraHan",
     "email": "lamantyc@gmail.com"
@@ -10,7 +9,6 @@
   "scripts": {
     "serve": "vite",
     "build": "vue-tsc --noEmit && vite build && electron-builder",
-    "ia32": "vue-tsc --noEmit && vite build && electron-builder --config electron-builder.json5 --windows nsis:ia32 --publish never",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -23,6 +21,9 @@
     "less": "4.2.1",
     "less-loader": "12.2.0",
     "path": "0.12.7",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5",
+    "sqlite3": "5.1.7",
     "unplugin-vue-components": "0.27.3",
     "vue": "3.4.21",
     "vue-codemirror": "6.1.1",

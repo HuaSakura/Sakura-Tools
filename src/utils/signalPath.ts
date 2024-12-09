@@ -1,6 +1,40 @@
 import {app, globalShortcut, ipcMain, shell} from 'electron';
 import {restart, setAutoStart} from "./utils.ts";
 
+const {dirname, join} = require('path')
+
+
+/**
+ * 判断是否为开发模式
+ * @constructor
+ */
+function JudgmentMode() {
+    return process.env.NODE_ENV === 'development';
+}
+
+/**
+ * 设置文件路径
+ * @constructor
+ */
+function SetFilePath() {
+    const exePath: string = dirname(app.getPath('exe'));
+    const staticPath: string = 'resources/app.asar.unpacked/';
+    const publicPath: string = process.env.VITE_PUBLIC || '';
+
+    let configPath: string;
+    let iconPath: string;
+
+    if (JudgmentMode()) {
+        configPath = join(publicPath, 'config');
+        iconPath = join(publicPath, 'favicon.ico');
+    } else {
+        configPath = join(exePath, staticPath, 'config');
+        iconPath = join(exePath, 'favicon.ico');
+    }
+
+    return {configPath, iconPath};
+}
+
 /**
  * 注册全局快捷键
  * @constructor
@@ -16,7 +50,6 @@ function RegisterGlobalShortcut(mainWin: any) {
     globalShortcut.register('shift + F1', () => {
         mainWin.fullScreen = true
     })
-
 
     //开发者工具
     globalShortcut.register('ctrl + shift + i', () => {
@@ -96,4 +129,4 @@ function signalPath(mainWin: any) {
     })
 }
 
-export {RegisterGlobalShortcut, signalPath}
+export {RegisterGlobalShortcut, signalPath, SetFilePath, JudgmentMode}

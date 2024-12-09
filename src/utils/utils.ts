@@ -2,29 +2,29 @@ import {app, BrowserWindow, Menu, Tray} from "electron";
 import {dirname, join} from "node:path";
 import {createWindow, VITE_DEV_SERVER_URL} from "../../electron/main.ts";
 import {fileURLToPath} from "node:url";
-
-//@ts-ignore
-let staticPath: string = 'resources/app.asar.unpacked/';
+import {JudgmentMode} from './signalPath.ts'
+import {getUserInfo, initSql} from "./sqlite.ts";
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 function useCreateWindow(iconPath: string) {
-    let mainWin = new BrowserWindow({
+    let mainWin: BrowserWindow = new BrowserWindow({
+        show: false,
         title: import.meta.env.VITE_APP_TITLE,
         width: 1024,
         height: 768,
         frame: false,
-        resizable: false,
         icon: iconPath,
+        resizable: false,
         minimizable: true,
         maximizable: true,
+        backgroundColor: '#000',
         webPreferences: {
-            preload: join(__dirname, 'preload.mjs'),
+            webviewTag: true,
             webSecurity: true,
             nodeIntegration: true,
-            contextIsolation: true,
-            //@ts-ignore
-            nativeWindowOpen: true,
+            contextIsolation: false,
+            preload: join(__dirname, './preload.mjs'),
         }
     })
 
@@ -33,6 +33,9 @@ function useCreateWindow(iconPath: string) {
 
 function DidFinishLoad(mainWin: any) {
     mainWin.webContents.on('did-finish-load', () => {
+        mainWin.show()
+        initSql()
+        getUserInfo()
         if (JudgmentMode()) {
             //mainWin.webContents.openDevTools()
         } else {
@@ -62,31 +65,6 @@ function SetBootPath(mainWin: any) {
 function restart() {
     app.relaunch()
     setTimeout(() => app.exit(), 100)
-}
-
-/**
- * 判断是否为开发模式
- * @constructor
- */
-function JudgmentMode() {
-    return process.env.NODE_ENV === 'development';
-}
-
-
-/**
- * 设置文件路径
- * @constructor
- */
-function SetFilePath() {
-    let iconPath: any;
-
-    if (JudgmentMode()) {
-        iconPath = join(process.env.VITE_PUBLIC, 'favicon.ico')
-    } else {
-        iconPath = join(dirname(app.getPath('exe')), 'favicon.ico')
-    }
-
-    return {iconPath}
 }
 
 /**
@@ -146,7 +124,6 @@ function setAutoStart(type: boolean) {
 export {
     restart,
     SetBootPath,
-    SetFilePath,
     JudgmentMode,
     setAutoStart,
     DidFinishLoad,

@@ -15,10 +15,7 @@ import {defineComponent} from 'vue';
 export default defineComponent({
   name: "index",
   setup() {
-
-    return {
-
-    }
+      return {}
   }
 })
 </script>

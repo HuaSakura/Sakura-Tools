@@ -2,16 +2,8 @@ import {app, BrowserWindow, Menu} from 'electron'
 //import {createRequire} from 'node:module'
 import {fileURLToPath} from 'node:url'
 import {dirname, join} from 'node:path'
-
-import {
-    createTrayIcon,
-    DidFinishLoad,
-    OrganizeWindowDefaultEvents,
-    SetBootPath,
-    SetFilePath,
-    useCreateWindow
-} from "../src/utils/utils.ts";
-import {RegisterGlobalShortcut, signalPath} from "../src/utils/signalPath.ts";
+import {RegisterGlobalShortcut, SetFilePath, signalPath} from "../src/utils/signalPath.ts";
+import {createTrayIcon, DidFinishLoad, OrganizeWindowDefaultEvents, SetBootPath, useCreateWindow} from "../src/utils/utils.ts";
 
 //const require: NodeRequire = createRequire(import.meta.url)
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -60,7 +52,7 @@ if (!goTheLock) {
         }
     })
 
-    app.on('ready', () => {
+    app.whenReady().then(() => {
         createWindow()
         createTrayIcon(mainWin)
     })
@@ -77,7 +69,6 @@ function createWindow() {
      * 监听窗口加载完成事件
      */
     DidFinishLoad(mainWin)
-
 
     /**
      * 设置窗口启动路径
