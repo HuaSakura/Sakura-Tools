@@ -1,7 +1,9 @@
-import {app, globalShortcut, ipcMain, shell} from 'electron';
+import {dirname, join} from "node:path"
 import {restart, setAutoStart} from "./utils.ts";
+import {app, globalShortcut, ipcMain, shell} from 'electron';
+import {useSqlite} from "./sqlite.ts";
 
-const {dirname, join} = require('path')
+const {getTheme, setTheme} = useSqlite();
 
 
 /**
@@ -96,7 +98,7 @@ function RegisterGlobalShortcut(mainWin: any) {
  * 信号通道
  */
 function signalPath(mainWin: any) {
-    ipcMain.on('full-screen-type', (_event, type) => {
+    ipcMain.handle('full-screen-type', (_event, type) => {
         if (type && !mainWin.isMaximized()) {
             mainWin.maximize()
         } else {
@@ -104,28 +106,36 @@ function signalPath(mainWin: any) {
         }
     })
 
-    ipcMain.on('top-type', (_event, type) => {
+    ipcMain.handle('top-type', (_event, type) => {
         mainWin.setAlwaysOnTop(type)
     })
 
-    ipcMain.on('win-restart', () => {
+    ipcMain.handle('win-restart', () => {
         restart()
     })
 
-    ipcMain.on('close-window', () => {
+    ipcMain.handle('close-window', () => {
         mainWin.close()
     })
 
-    ipcMain.on('minimize-window', () => {
+    ipcMain.handle('minimize-window', () => {
         mainWin.minimize()
     })
 
-    ipcMain.on('open-official-website', () => {
+    ipcMain.handle('open-official-website', () => {
         shell.openExternal('https://www.98one.cn');
     })
 
-    ipcMain.on('set-auto-start', (_event, data) => {
+    ipcMain.handle('set-auto-start', (_event, data) => {
         setAutoStart(data)
+    })
+
+    ipcMain.handle('get-theme', async () => {
+        return await getTheme()
+    })
+
+    ipcMain.handle('set-theme', async (_event, data) => {
+        return await setTheme(data)
     })
 }
 

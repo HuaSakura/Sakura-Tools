@@ -2,8 +2,8 @@ import {app, BrowserWindow, Menu} from 'electron'
 //import {createRequire} from 'node:module'
 import {fileURLToPath} from 'node:url'
 import {dirname, join} from 'node:path'
-import {RegisterGlobalShortcut, SetFilePath, signalPath} from "../src/utils/signalPath.ts";
-import {createTrayIcon, DidFinishLoad, OrganizeWindowDefaultEvents, SetBootPath, useCreateWindow} from "../src/utils/utils.ts";
+import {RegisterGlobalShortcut, SetFilePath, signalPath} from "./utils/signalPath.ts";
+import {createTrayIcon, DidFinishLoad, OrganizeWindowDefaultEvents, SetBootPath, useCreateWindow} from "./utils/utils.ts";
 
 //const require: NodeRequire = createRequire(import.meta.url)
 const __dirname = dirname(fileURLToPath(import.meta.url))

@@ -47,10 +47,11 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue'
+import {defineComponent, onMounted, ref} from 'vue'
 import {Button, Checkbox, Form, FormItem} from "ant-design-vue";
 import {setTheme} from "@/settings/setTheme.ts";
 import {useRouter} from "vue-router";
+import {BooleanConversions} from "@/utils/utils.ts";
 
 export default defineComponent({
   name: "setting",
@@ -61,58 +62,100 @@ export default defineComponent({
     Checkbox: [Checkbox.name],
   },
   setup() {
-    const router = useRouter();
+      const router = useRouter();
 
-    const theme: any = ref({
-      autoType: true,
-      darkType: false,
-      lightType: false
-    });
+      const theme: any = ref({
+          autoType: true,
+          darkType: false,
+          lightType: false
+      });
 
-    const autoStart = ref(false as boolean);
+      const defTheme = ref('')
 
-    const typesFun: any = {
-      'auto': () => {
-        theme.value = {autoType: true, lightType: false, darkType: false}
-      },
-      'light': () => {
-        theme.value = {autoType: false, lightType: true, darkType: false}
-      },
-      'dark': () => {
-        theme.value = {autoType: false, lightType: false, darkType: true}
+      onMounted(() => {
+          getTheme()
+      })
+
+      const autoStart = ref(false as boolean);
+
+      const typesFun: any = {
+          'auto': () => {
+              theme.value = {autoType: true, lightType: false, darkType: false}
+          },
+          'light': () => {
+              theme.value = {autoType: false, lightType: true, darkType: false}
+          },
+          'dark': () => {
+              theme.value = {autoType: false, lightType: false, darkType: true}
+          }
+      };
+
+      /**
+       * 获取主题
+       */
+      function getTheme() {
+          window.ipcRenderer.invoke('get-theme').then((resp: any) => {
+              theme.value = BooleanConversions(resp);
+              const {autoType, lightType, darkType} = theme.value;
+              let themes = 'auto';
+              if (lightType) {
+                  themes = 'light';
+              } else if (darkType) {
+                  themes = 'dark';
+              } else if (autoType) {
+                  themes = 'auto';
+              }
+              defTheme.value = themes;
+              setTheme(themes);
+          })
       }
-    };
 
-    function switchThemes(type: any) {
-      typesFun[type]()
-      let types: any = checkObjectType();
-      setTheme(types)
-    }
-
-    function checkObjectType() {
-      for (let key in theme.value) {
-        const type = theme.value[key];
-        if(type == true){
-          return key.replace('Type', '');
-        }
+      /**
+       * 切换主题
+       * @param type
+       */
+      function switchThemes(type: any) {
+          typesFun[type]();
+          setTheme(checkObjectType());
       }
-    }
 
-    function saveApply() {
-      window.ipcRenderer.send('set-auto-start', autoStart.value)
-    }
+      /**
+       * 检查对象类型
+       */
+      function checkObjectType() {
+          for (let key in theme.value) {
+              const type = theme.value[key];
+              if (type == true) {
+                  return key.replace('Type', '');
+              }
+          }
+      }
 
-    function abandon() {
-      router.push('/')
-    }
+      /**
+       * 保存并应用
+       */
+      function saveApply() {
+          window.ipcRenderer.invoke('set-auto-start', autoStart.value);
+          window.ipcRenderer.invoke('set-theme', JSON.parse(JSON.stringify(theme.value))).then((resp: any) => {
+              console.log(resp)
+          })
+      }
 
-    return {
-      theme,
-      abandon,
-      autoStart,
-      saveApply,
-      switchThemes
-    }
+      /**
+       * 放弃
+       */
+      function abandon() {
+          getTheme();
+          router.push('/');
+      }
+
+      return {
+          theme,
+          abandon,
+          autoStart,
+          saveApply,
+          switchThemes
+      }
   }
 })
 </script>

@@ -67,60 +67,84 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from "vue";
+import {defineComponent, onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {
-  CloseOutlined,
-  FullscreenExitOutlined,
-  FullscreenOutlined,
-  MinusOutlined,
-  PushpinFilled,
-  PushpinOutlined,
-  QuestionCircleOutlined,
-  SettingOutlined
+    CloseOutlined,
+    FullscreenExitOutlined,
+    FullscreenOutlined,
+    MinusOutlined,
+    PushpinFilled,
+    PushpinOutlined,
+    QuestionCircleOutlined,
+    SettingOutlined
 } from "@ant-design/icons-vue"
 import {useColorMode} from "@vueuse/core";
+import {BooleanConversions} from "@/utils/utils.ts";
+import {setTheme} from "@/settings/setTheme.ts";
 
 export default defineComponent({
-  name: "App",
-  components: {
-    QuestionCircleOutlined,
-    SettingOutlined,
-    PushpinFilled,
-    MinusOutlined,
-    CloseOutlined,
-    PushpinOutlined,
+    name: "App",
+    components: {
+        QuestionCircleOutlined,
+        SettingOutlined,
+        PushpinFilled,
+        MinusOutlined,
+        CloseOutlined,
+        PushpinOutlined,
     FullscreenOutlined,
     FullscreenExitOutlined
   },
   setup() {
-    const route = useRoute();
-    const router = useRouter();
-    const mode = useColorMode()
-    const FullScreenType = ref(true as boolean);
-    const TopType = ref(true as boolean);
-    const titleBar = ref(null as any);
+      const route = useRoute();
+      const router = useRouter();
+      const mode = useColorMode()
+      const FullScreenType = ref(true as boolean);
+      const TopType = ref(true as boolean);
+      const titleBar = ref(null as any);
 
-    function FullScreen() {
-      FullScreenType.value = !FullScreenType.value;
-      window.ipcRenderer.send('full-screen-type', !FullScreenType.value)
-    }
+      onMounted(() => {
+          getTheme();
+      })
 
-    function TopOperation() {
-      TopType.value = !TopType.value;
-      window.ipcRenderer.send('top-type', !TopType.value)
-    }
+      /**
+       * 获取主题
+       */
+      function getTheme() {
+          window.ipcRenderer.invoke('get-theme').then((resp: any) => {
+              const {autoType, lightType, darkType} = BooleanConversions(resp);
+              let themes = 'auto';
+              if (lightType) {
+                  themes = 'light';
+              } else if (darkType) {
+                  themes = 'dark';
+              } else if (autoType) {
+                  themes = 'auto';
+              }
+              setTheme(themes);
+          })
+      }
+
+      function FullScreen() {
+          FullScreenType.value = !FullScreenType.value;
+          window.ipcRenderer.invoke('full-screen-type', !FullScreenType.value)
+      }
+
+      function TopOperation() {
+          TopType.value = !TopType.value;
+          window.ipcRenderer.invoke('top-type', !TopType.value)
+      }
 
     function CloseWindow() {
-      window.ipcRenderer.send('close-window')
+        window.ipcRenderer.invoke('close-window')
     }
 
     function minimizeWindow() {
-      window.ipcRenderer.send('minimize-window')
+        window.ipcRenderer.invoke('minimize-window')
     }
 
     function openOfficialWebsite() {
-      window.ipcRenderer.send('open-official-website')
+        window.ipcRenderer.invoke('open-official-website')
     }
 
     function openSetting(){
